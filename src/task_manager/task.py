@@ -12,6 +12,10 @@ class Task:
             raise ValueError("Task name cannot be empty")
         if len(name) > 50:
             raise ValueError("Task name cannot be longer than 50 characters")
+        if not isinstance(description, str):
+            raise TypeError("Task description must be a string")
+        if len(description) > 400:
+            raise ValueError("Task description cannot be longer than 400 characters")
         self.name: str = name
         self.description: str = description
         self.priority: int = priority
