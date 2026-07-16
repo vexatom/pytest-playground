@@ -32,6 +32,12 @@ class Task:
         self.__id: int = next(self.__id)
 
     def change_name(self, name: str) -> bool:
+        if not isinstance(name, str):
+            raise TypeError("Task name must be a string")
+        if not name.strip():
+            raise ValueError("Task name cannot be empty")
+        if len(name) > 50:
+            raise ValueError("Task name cannot be longer than 50 characters")
         self.name = name
         return True
 

@@ -121,3 +121,9 @@ def test_task_returns_correct_priority():
 
 def test_tasks_have_unique_ids(task, inactive_task):
     assert task.id != inactive_task.id
+
+@pytest.mark.parametrize('name', ['', ' '])
+def test_change_name_raises_value_error_for_empty_name(name):
+    task = Task('<NAME>', 'This is a test task')
+    with pytest.raises(ValueError):
+        task.change_name(name)
