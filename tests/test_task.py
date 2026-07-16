@@ -123,7 +123,35 @@ def test_tasks_have_unique_ids(task, inactive_task):
     assert task.id != inactive_task.id
 
 @pytest.mark.parametrize('name', ['', ' '])
-def test_change_name_raises_value_error_for_empty_name(name):
+def test_set_name_raises_value_error_for_empty_name(name):
     task = Task('<NAME>', 'This is a test task')
     with pytest.raises(ValueError):
-        task.change_name(name)
+        task.set_name(name)
+
+@pytest.mark.parametrize('description', [None, [1, 2], (1, 2), {1: 2}, False, 123])
+def test_set_description_raises_type_error_when_description_is_not_str(description):
+    task = Task('<NAME>', 'This is a test task')
+
+    with pytest.raises(TypeError):
+        task.set_description(description)
+
+
+def test_set_description_raises_value_error_when_description_greater_than_400():
+    task = Task('<NAME>', 'This is a test task')
+
+    with pytest.raises(ValueError):
+        task.set_description('A' * 401)
+
+@pytest.mark.parametrize('status', ['active', 1, [1, 2], {1: 2}, (1, 2)])
+def test_task_raises_type_error_for_not_boolean_status(status):
+    with pytest.raises(TypeError):
+        Task('<NAME>', 'This is a test task', status=status)
+
+def test_change_status_returns_reverse_value():
+    status = False
+    task = Task('<NAME>', 'This is a test task', status=status)
+
+    task.change_status()
+
+    assert task.status is not status
+
