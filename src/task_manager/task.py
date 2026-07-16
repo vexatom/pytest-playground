@@ -9,13 +9,17 @@ class Task:
     def id(self) -> int:
         return self.__id
 
-    def __init__(self, name: str, description: str, priority: int = 0, status: bool = True) -> None:
+    @staticmethod
+    def _validate_name(name: str) -> None:
         if not isinstance(name, str):
             raise TypeError("Task name must be a string")
         if not name.strip():
             raise ValueError("Task name cannot be empty")
         if len(name) > 50:
             raise ValueError("Task name cannot be longer than 50 characters")
+
+    def __init__(self, name: str, description: str, priority: int = 0, status: bool = True) -> None:
+        self._validate_name(name)
         if not isinstance(description, str):
             raise TypeError("Task description must be a string")
         if len(description) > 400:
@@ -32,12 +36,7 @@ class Task:
         self.__id: int = next(self.__id)
 
     def change_name(self, name: str) -> bool:
-        if not isinstance(name, str):
-            raise TypeError("Task name must be a string")
-        if not name.strip():
-            raise ValueError("Task name cannot be empty")
-        if len(name) > 50:
-            raise ValueError("Task name cannot be longer than 50 characters")
+        self._validate_name(name)
         self.name = name
         return True
 
