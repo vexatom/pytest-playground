@@ -5,6 +5,10 @@ class Task:
 
     __id = count(start=0)
 
+    @property
+    def id(self) -> int:
+        return self.__id
+
     def __init__(self, name: str, description: str, priority: int = 0, status: bool = True) -> None:
         if not isinstance(name, str):
             raise TypeError("Task name must be a string")

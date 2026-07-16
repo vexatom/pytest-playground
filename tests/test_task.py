@@ -118,3 +118,6 @@ def test_task_returns_correct_priority():
     task = Task(name, description, priority=priority)
 
     assert task.priority == priority
+
+def test_tasks_have_unique_ids(task, inactive_task):
+    assert task.id != inactive_task.id
