@@ -16,6 +16,11 @@ class Task:
             raise TypeError("Task description must be a string")
         if len(description) > 400:
             raise ValueError("Task description cannot be longer than 400 characters")
+        if type(priority) is not int:
+            raise TypeError("Priority must be an integer")
+        if priority < 0 or priority > 3:
+            raise ValueError("Priority must be between 0 and 3")
+
         self.name: str = name
         self.description: str = description
         self.priority: int = priority

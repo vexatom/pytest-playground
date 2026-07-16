@@ -101,3 +101,36 @@ def test_task_allows_when_description_len_is_400():
     task = Task(name, description)
 
     assert task.description == description
+
+def test_task_raises_type_error_when_priority_is_not_int():
+    name = "<NAME>"
+    description = "This is a test task"
+    priority = 'high'
+
+    with pytest.raises(TypeError):
+        Task(name, description, priority=priority)
+
+def test_task_raises_value_error_when_priority_greater_than_3():
+    name = "<NAME>"
+    description = "This is a test task"
+    priority = 4
+
+    with pytest.raises(ValueError):
+        Task(name, description, priority=priority)
+
+def test_task_raises_value_error_when_priority_lower_than_0():
+    name = "<NAME>"
+    description = "This is a test task"
+    priority = -1
+
+    with pytest.raises(ValueError):
+        Task(name, description, priority=priority)
+
+def test_task_returns_correct_priority():
+    name = "<NAME>"
+    description = "This is a test task"
+    priority = 3
+
+    task = Task(name, description, priority=priority)
+
+    assert task.priority == priority
