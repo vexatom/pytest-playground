@@ -6,6 +6,12 @@ class Task:
     __id = count(start=0)
 
     def __init__(self, name: str, description: str, priority: int = 0, status: bool = True) -> None:
+        if not isinstance(name, str):
+            raise TypeError("Task name must be a string")
+        if not name.strip():
+            raise ValueError("Task name cannot be empty")
+        if len(name) > 50:
+            raise ValueError("Task name cannot be longer than 50 characters")
         self.name: str = name
         self.description: str = description
         self.priority: int = priority
