@@ -1,6 +1,6 @@
 import pytest
 
-from src.task_manager import Task
+from src.task_manager import Task, TaskManager
 
 
 @pytest.fixture
@@ -14,3 +14,7 @@ def inactive_task():
 @pytest.fixture
 def important_task():
     return Task('Important task', 'This is a very important task', status=True, priority=3)
+
+@pytest.fixture
+def task_manager():
+    return TaskManager()
